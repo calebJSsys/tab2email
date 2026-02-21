@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TabMail — Search</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="logo logo-sm">TabMail</h1>
+      <a href="/logout" class="logout-link">Logout</a>
+    </header>
+
+    <div class="search-section">
+      <form id="searchForm" class="search-form">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search for a song... e.g. Foo Fighters - Everlong"
+          autofocus
+          required
+          class="input input-search"
+        >
+        <button type="submit" class="btn btn-primary" id="searchBtn">Search</button>
+      </form>
+    </div>
+
+    <div id="results" class="results"></div>
+
+    <div id="previewModal" class="modal" style="display:none">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="previewTitle"></h2>
+          <button class="modal-close" id="closeModal">&times;</button>
+        </div>
+        <div class="modal-meta" id="previewMeta"></div>
+        <pre id="previewContent" class="chord-sheet"></pre>
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="sendFromPreview">Send as PDF</button>
+          <button class="btn btn-secondary" id="closeModalBtn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" style="display:none"></div>
+
+    <footer class="footer">
+      <a href="/terms">Terms of Use & Transparency</a>
+      <span class="footer-sep">&middot;</span>
+      <span>Non-commercial project for missionaries</span>
+    </footer>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

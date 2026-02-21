@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TabMail</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container login-container">
+    <div class="login-card">
+      <h1 class="logo">TabMail</h1>
+      <p class="tagline">Send guitar tabs to your missionary</p>
+      <form action="/auth" method="POST" class="login-form">
+        <input
+          type="password"
+          name="password"
+          placeholder="Enter password"
+          autofocus
+          required
+          class="input"
+        >
+        <button type="submit" class="btn btn-primary">Enter</button>
+      </form>
+      <div class="login-footer">
+        <a href="/terms">Terms of Use & Transparency</a>
+      </div>
+      <script>
+        if (window.location.search.includes('error=1')) {
+          const form = document.querySelector('.login-form');
+          const err = document.createElement('p');
+          err.className = 'error-msg';
+          err.textContent = 'Wrong password, try again';
+          form.prepend(err);
+        }
+      </script>
+    </div>
+  </div>
+</body>
+</html>
