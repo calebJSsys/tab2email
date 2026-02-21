@@ -98,29 +98,12 @@ router.post('/inbound-email', express.urlencoded({ extended: false }), async (re
     const sheet = await fetchChordSheet(best.url);
     const pdfBuffer = await generatePDF(sheet);
 
-    // Reply with PDF attached
-    const nodemailer = require('nodemailer');
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.mailgun.org',
-      port: 587,
-      secure: false,
-      auth: {
-        user: `postmaster@${process.env.MAILGUN_DOMAIN}`,
-        pass: process.env.MAILGUN_API_KEY,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `TabMail <noreply@${process.env.MAILGUN_DOMAIN || 'tabmail.xyz'}>`,
-      to: senderEmail,
-      subject: `Re: ${subject}`,
-      text: `Here are the chords for "${sheet.title}" by ${sheet.artist}. Enjoy!`,
-      attachments: [{
-        filename: `${sheet.artist} - ${sheet.title}.pdf`,
-        content: pdfBuffer,
-        contentType: 'application/pdf',
-      }],
-    });
+    await sendReplyEmail(
+      senderEmail,
+      `Re: ${subject}`,
+      `Here are the chords for "${sheet.title}" by ${sheet.artist}. Enjoy!`,
+      { filename: `${sheet.artist} - ${sheet.title}.pdf`, content: pdfBuffer }
+    );
 
     console.log(`Sent reply with PDF for "${sheet.title}" to ${senderEmail}`);
     res.status(200).send('ok');
